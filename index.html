@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Audiobeschreibung</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      color: #111111;
+      margin: 0;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+
+    main {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 1.2rem;
+      margin-top: 1.5rem;
+      font-size: 1.3rem;
+      font-weight: bold;
+      background: #003366;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    button:focus {
+      outline: 4px solid #ffcc00;
+      outline-offset: 4px;
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 1.5rem;
+    }
+
+    .hinweis {
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: #444444;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Audiobeschreibung</h1>
+
+    <p>
+      Diese Seite spielt eine Audiobeschreibung ab. Falls die Wiedergabe nicht automatisch startet,
+      drücken Sie bitte auf den folgenden Button.
+    </p>
+
+    <button id="playButton" aria-label="Audiobeschreibung abspielen">
+      Audiobeschreibung abspielen
+    </button>
+
+    <audio id="audioDescription" controls preload="auto">
+      <source src="audiobeschreibung.mp3" type="audio/mpeg" />
+      Ihr Browser unterstützt das Audioelement nicht.
+    </audio>
+
+    <p class="hinweis" id="status">
+      Die Audiobeschreibung wird vorbereitet.
+    </p>
+  </main>
+
+  <script>
+    const audio = document.getElementById("audioDescription");
+    const playButton = document.getElementById("playButton");
+    const statusText = document.getElementById("status");
+
+    async function playAudio() {
+      try {
+        await audio.play();
+        statusText.textContent = "Die Audiobeschreibung wird abgespielt.";
+      } catch (error) {
+        statusText.textContent = "Automatisches Abspielen wurde vom Gerät blockiert. Bitte drücken Sie den Button.";
+      }
+    }
+
+    window.addEventListener("load", playAudio);
+    playButton.addEventListener("click", playAudio);
+  </script>
+</body>
+</html>
